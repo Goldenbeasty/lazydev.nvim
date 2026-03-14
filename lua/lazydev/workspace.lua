@@ -148,7 +148,9 @@ function M:add(path)
   if path ~= self.root and not vim.tbl_contains(self.library, path) then
     table.insert(self.library, path)
     if self.root ~= M.GLOBAL then
-      require("lazydev.buf").update()
+      vim.schedule(function()
+        require("lazydev.buf").update()
+      end)
     end
   end
 end
